@@ -1,23 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+
+  let post = '범계 서점';
+  let [title, b] = useState('경제 서적 추전');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="black-nav">
+        <h4>React Blog</h4>
+      </div>
+      <h4 style={ {color:'skyblue',fontSize:'15px'} }>{post}</h4>
+      <div className="list">
+        <h4>{title}</h4>
+        <p>12월 27일 발행</p>
+      </div>
     </div>
   );
 }
