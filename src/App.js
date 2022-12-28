@@ -6,6 +6,7 @@ function App() {
   let post = '범계 서점';
   let [title, setTitle] = useState(['경제 서적 추전', '엠아이티 강의 주소', '겨울 여행 추천']);
   let [like, setLike] = useState(0);
+  let [modal, setModal] = useState(false);
 
   return (
     <div className="App">
@@ -39,12 +40,26 @@ function App() {
         <p>12월 27일 발행</p>
       </div>
       <div className="list">
-        <h4>{title[2]}</h4>
+        <h4 onClick={ 
+          ()=>{ setModal(!modal) } 
+        }>{title[2]}</h4>
         <p>12월 27일 발행</p>
       </div>
-      
+      {
+        modal == true ? <Modal/> : null
+      }
     </div>
   );
+}
+
+function Modal() {
+  return (
+    <div className="modal">
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  )
 }
 
 export default App;
