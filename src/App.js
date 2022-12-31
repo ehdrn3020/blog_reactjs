@@ -7,6 +7,7 @@ function App() {
   let [title, setTitle] = useState(['경제 서적 추전', '엠아이티 강의 주소', '겨울 여행 추천']);
   let [like, setLike] = useState(Array.from({length: title.length}, (v, i) => 0));
   let [modal, setModal] = useState(false);
+  let [m_title, setMTitle] = useState(title[0]);
 
   return (
     <div className="App">
@@ -34,7 +35,7 @@ function App() {
         title.map(function(data, idx){
           return (      
             <div className="list">
-              <h4 onClick={()=>{ setModal(!modal) }}>[{idx}] {data}</h4>
+              <h4 onClick={()=>{ setModal(!modal); setMTitle(data); }}>[{idx}] {data}</h4>
                 <span onClick={()=>{
                   let copy_like = [...like];
                   copy_like[idx] += 1
@@ -46,18 +47,19 @@ function App() {
         })
       }
       {
-        modal === true ? <Modal/> : null
+        modal === true ? <Modal title={m_title} /> : null
       }
     </div>
   );
 }
 
-function Modal() {
+function Modal(props) {
   return (
     <div className="modal">
-      <h4>제목</h4>
+      <h4>{props.title}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={props.change}>글수정</button>
     </div>
   )
 }
