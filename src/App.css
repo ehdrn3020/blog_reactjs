@@ -58,3 +58,6 @@ div {
   background: #eee;
   text-align: left;
 }
+span {
+  cursor: pointer;
+}

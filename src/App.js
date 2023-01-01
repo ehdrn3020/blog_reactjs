@@ -3,11 +3,12 @@ import { useState } from 'react';
 
 function App() {
 
-  let post = '범계 서점';
-  let [title, setTitle] = useState(['경제 서적 추전', '엠아이티 강의 주소', '겨울 여행 추천']);
+  let post = 'DGK 서점';
+  let [title, setTitle] = useState(['경제 서적 추전', '엠아이티 강의 주소', '겨울 여행 서적 추천']);
   let [like, setLike] = useState(Array.from({length: title.length}, (v, i) => 0));
   let [modal, setModal] = useState(false);
   let [m_title, setMTitle] = useState(title[0]);
+  let [u_input, setUInput] = useState('');
 
   return (
     <div className="App">
@@ -34,14 +35,21 @@ function App() {
       {
         title.map(function(data, idx){
           return (      
-            <div className="list">
-              <h4 onClick={()=>{ setModal(!modal); setMTitle(data); }}>[{idx}] {data}</h4>
-                <span onClick={()=>{
+            <div className="list" key={idx}>
+              <h4 onClick={()=>{ setModal(!modal); setMTitle(data); }}>[{idx}] {data}
+                <span onClick={(e)=>{
+                  e.stopPropagation();
                   let copy_like = [...like];
-                  copy_like[idx] += 1
-                  setLike(copy_like)
+                  copy_like[idx] += 1;
+                  setLike(copy_like);
                 }} >👍</span> {like[idx]}
+              </h4>
               <p>12월 27일 발행</p>
+              <button onClick={() => {
+                let copy = [...title];
+                copy.splice(idx,1);
+                setTitle(copy);
+              }}>삭제</button>
             </div>
           )
         })
@@ -49,6 +57,21 @@ function App() {
       {
         modal === true ? <Modal title={m_title} /> : null
       }
+      <input onChange={ (e)=>{ 
+        setUInput(e.target.value); 
+      }}/>
+      <button onClick={()=>{
+        if(u_input !== ''){
+          let copy = [...title];
+          copy.push(u_input); 
+          setTitle(copy);
+          document.querySelector('input').value = "";
+
+          let copy_like = [...like];
+          copy_like.push(0);
+          setLike(copy_like);
+        }
+      }}>목록추가</button>
     </div>
   );
 }
